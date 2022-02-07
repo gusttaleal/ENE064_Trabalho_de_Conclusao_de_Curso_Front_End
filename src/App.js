@@ -1,97 +1,60 @@
 import { useState, useEffect } from "react";
-import { db } from "./firebase-config";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  GeoPoint,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore";
-
-import "./App.css";
+import { DeviceModel } from "./models/DeviceModel";
+import { createDevice, readDevice, updateDevice, deleteDevice } from "./repositories/DeviceRepository";
 
 function App() {
   const [devices, setDevice] = useState([]);
+  const [flag, setFlag] = useState(false);
 
-  useEffect(() => {}, [devices]);
-
-  console.log(devices.map((device) => device.id));
-
-  const getDevices = async () => {
-    try {
-      const data = await getDocs(
-        query(collection(db, "devices"), orderBy("deviceCreatedAt", "asc"))
-      );
-      setDevice(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const createDevice = async () => {
-    try {
-      await addDoc(collection(db, "devices"), {
-        deviceName: "NEO-7M",
-        deviceType: "GNSS",
-        deviceStatus: true,
-        deviceCreatedAt: serverTimestamp(),
+  useEffect(() => {
+    const getDevices = async () => {
+      let result = await readDevice();
+      const devices = result.map((_device) => {
+        const device = new DeviceModel();
+        return device.set(_device);
       });
-      await getDevices();
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const recivedData = async (id) => {
-    const ref = collection(db, "devices/" + id + "/transmittedData");
-    try {
-      await addDoc(ref, {
-        location: new GeoPoint(-40.5, 25.0),
-        createdAt: serverTimestamp(),
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const deleteDevice = async (id) => {
-    const reference = doc(db, "devices", id);
-    try {
-      await deleteDoc(reference);
-      await getDevices();
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const formatFirestoreDate = (device) => {
-    const date = new Date(device.deviceCreatedAt.seconds * 1000).toLocaleString(
-      "pt-BR"
-    );
-    return date;
-  };
+      setDevice(devices);
+    };
+    getDevices();
+  }, [flag]);
 
   return (
     <div className="App">
       {devices.map((device) => {
+        const model = new DeviceModel();
         return (
-          <section key={device.id}>
-            <p>id: {device.id}</p>
-            <p>deviceCreatedAt: {formatFirestoreDate(device)}</p>
+          <section key={device.deviceId}>
+            <p>deviceId: {device.deviceId}</p>
             <p>deviceName: {device.deviceName}</p>
             <p>deviceType: {device.deviceType}</p>
-            <p>deviceStatus: {device.deviceStatus.toString()}</p>
-
-            <button onClick={() => recivedData(device.id)}>recivedData</button>
-            <button onClick={() => deleteDevice(device.id)}>Delete</button>
+            <button
+              onClick={() => {
+                updateDevice(device.deviceId, model.update({ ...device, deviceName: "NEO-7M" }));
+                setFlag(!flag);
+              }}
+            >
+              Change deviceName
+            </button>{" "}
+            <button
+              onClick={async () => {
+                await deleteDevice(device.deviceId);
+                setFlag(!flag);
+              }}
+            >
+              Delete
+            </button>
           </section>
         );
       })}
-      <button onClick={createDevice}>Create</button>
+      <button
+        onClick={async () => {
+          const device = new DeviceModel();
+          await createDevice(device.create({ deviceName: "NEO-7M", deviceType: "GNSS", deviceStatus: true }));
+          setFlag(!flag);
+        }}
+      >
+        Create
+      </button>
     </div>
   );
 }
