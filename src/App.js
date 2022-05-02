@@ -29,12 +29,12 @@ function App() {
             <p>deviceType: {device.deviceType}</p>
             <button
               onClick={() => {
-                updateDevice(device.deviceId, model.update({ ...device, deviceName: "NEO-7M" }));
+                updateDevice(device.deviceId, model.update({ ...device, deviceName: "ESP-32" }));
                 setFlag(!flag);
               }}
             >
               Change deviceName
-            </button>{" "}
+            </button>
             <button
               onClick={async () => {
                 await deleteDevice(device.deviceId);
@@ -54,6 +54,13 @@ function App() {
         }}
       >
         Create
+      </button>
+      <button
+        onClick={async () => {
+          setFlag(!flag);
+        }}
+      >
+        Refresh
       </button>
     </div>
   );
