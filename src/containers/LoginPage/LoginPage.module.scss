@@ -1,0 +1,17 @@
+.login {
+  display: flex;
+  justify-content: center;
+
+  height: 100vh;
+
+  .login-container {
+    display: flex;
+
+    margin: 2rem;
+
+    .button-container {
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+}

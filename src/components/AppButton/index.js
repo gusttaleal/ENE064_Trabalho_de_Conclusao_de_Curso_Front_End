@@ -1,2 +1,2 @@
-import { AppButton } from './AppButton';
-export default AppButton;
+import { AppButton } from './AppButton.js';
+export { AppButton };

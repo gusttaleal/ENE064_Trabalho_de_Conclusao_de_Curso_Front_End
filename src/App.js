@@ -1,8 +1,11 @@
-import { Home } from './containers/home/Home';
 import './App.scss';
+import { HomePage } from './containers/HomePage';
+import { LoginPage } from './containers/LoginPage';
 
 function App() {
-  return <Home />;
+  return <LoginPage />;
+
+  // return <HomePage />;
 }
 
 export default App;

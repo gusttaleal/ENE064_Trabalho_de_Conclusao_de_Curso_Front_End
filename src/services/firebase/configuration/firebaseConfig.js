@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from '@firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,10 +13,14 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APPID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// Create a connection with Firebase Firestore
-const db = getFirestore(app);
-const auth = getAuth(app);
 
-export { db, auth };
+const firestoreDataBase = getFirestore(app);
+
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const signin = () => signInWithPopup(auth, provider);
+const signout = () => signOut(auth);
+
+export { firestoreDataBase, signin, signout };
