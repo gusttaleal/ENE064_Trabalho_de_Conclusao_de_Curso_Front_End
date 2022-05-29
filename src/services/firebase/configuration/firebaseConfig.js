@@ -1,9 +1,15 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from '@firebase/firestore';
-import { getAuth, signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore, serverTimestamp } from '@firebase/firestore';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signOut,
+  signInWithPopup,
+  onAuthStateChanged,
+  sendEmailVerification,
+  deleteUser,
+} from 'firebase/auth';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
   authDomain: process.env.REACT_APP_AUTHDOMAIN,
@@ -18,9 +24,30 @@ const app = initializeApp(firebaseConfig);
 const firestoreDataBase = getFirestore(app);
 
 const auth = getAuth(app);
+
 const provider = new GoogleAuthProvider();
 
-const signin = () => signInWithPopup(auth, provider);
-const signout = () => signOut(auth);
+const signin = (callback, errorHandler) => signInWithPopup(auth, provider).then(callback).catch(errorHandler);
 
-export { firestoreDataBase, signin, signout };
+const signout = (callback, errorHandler) => signOut(auth).then(callback).catch(errorHandler);
+
+const ruleOut = (user, callback, errorHandler) => deleteUser(user).then(callback).catch(errorHandler);
+
+const launchEmailVerification = (user, callback, errorHandler) =>
+  sendEmailVerification(user).then(callback).catch(errorHandler);
+
+const launchSigninStateObserver = (callback, errorHandler, observerHandler) =>
+  onAuthStateChanged(auth, callback, errorHandler, observerHandler);
+
+const getUserCredentials = (result) => GoogleAuthProvider.credentialFromResult(result);
+
+export {
+  serverTimestamp,
+  firestoreDataBase,
+  signin,
+  signout,
+  ruleOut,
+  launchEmailVerification,
+  launchSigninStateObserver,
+  getUserCredentials,
+};

@@ -1,2 +1,2 @@
-import { logOut } from './logOut.js';
-export { logOut };
+import { logout } from './logout.js';
+export { logout };

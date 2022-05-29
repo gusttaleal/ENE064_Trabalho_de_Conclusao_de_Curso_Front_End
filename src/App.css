@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --black: #000;
+  --white: #fcfcfc;
+  --gray: #bebebe;
+
+  --mono-color1: #000706;
+  --mono-color2: #00272d;
+  --mono-color3: #134647;
+  --mono-color4: #0c7e7e;
+  --mono-color5: #bfac8b;
+
+  --mono-color10: #3a3132;
+  --mono-color20: #0f4571;
+  --mono-color30: #386dbd;
+  --mono-color40: #009ddd;
+  --mono-color50: #05d3f8;
+
+  --mix-color1: #482344;
+  --mix-color2: #2b5166;
+  --mix-color3: #429867;
+  --mix-color4: #fab243;
+  --mix-color5: #e02130;
+
+  --mix-color10: #cf0638;
+  --mix-color20: #fa6632;
+  --mix-color30: #fecd23;
+  --mix-color40: #0a996f;
+  --mix-color50: #0a6789;
+}

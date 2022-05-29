@@ -1,17 +1,10 @@
 .login {
   display: flex;
-  justify-content: center;
 
-  height: 100vh;
+  margin: 2rem;
 
-  .login-container {
+  .button-container {
     display: flex;
-
-    margin: 2rem;
-
-    .button-container {
-      display: flex;
-      align-items: flex-end;
-    }
+    align-items: flex-end;
   }
 }

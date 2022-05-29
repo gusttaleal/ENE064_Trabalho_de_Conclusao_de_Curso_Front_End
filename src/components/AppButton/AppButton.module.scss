@@ -1,0 +1,28 @@
+.button {
+  width: 12rem;
+  height: 3rem;
+
+  border-style: solid;
+  border-width: 0.2rem;
+  border-radius: 1.5rem;
+  border-color: var(--mono-color20);
+
+  font-weight: 700;
+  font-size: 1rem;
+
+  color: var(--white);
+  background-color: var(--mono-color20);
+
+  transition-duration: 0.3s;
+}
+
+.button:hover {
+  color: var(--mono-color20);
+  background-color: var(--white);
+
+  cursor: pointer;
+}
+
+.button:active {
+  transform: translate(0.1rem, 0.1rem);
+}

@@ -1,2 +1,2 @@
-import { logIn } from './logIn.js';
-export { logIn };
+import { login } from './login.js';
+export { login };

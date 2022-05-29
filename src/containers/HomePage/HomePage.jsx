@@ -1,16 +1,53 @@
 import React from 'react';
+
 import { AppButton } from '../../components/AppButton';
-import { logOut } from '../../services/firebase/authentication/logout';
+
+import { useAuth } from '../../hooks/useAuth';
+import { useUser } from '../../hooks/useUser';
+
+// import { BaseApi } from '../../api/BaseApi';
+
 import styles from './HomePage.module.scss';
 
-export const HomePage = () => {
-  const handleLogout = async () => {
-    await logOut();
+const HomePage = () => {
+  const { signout } = useAuth();
+  const { ruleOut } = useUser();
+
+  const logoutUserHandler = async () => {
+    try {
+      await signout();
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
   };
 
+  const deleteUserHandler = async () => {
+    try {
+      await ruleOut();
+    } catch (error) {
+      console.log(`Error: ${error.message}`);
+    }
+  };
+
+  // const devicesHandler = async () => {
+  //   try {
+  //     const devices = await BaseApi.get('device');
+  //     devices.data.map((device) => console.log(device));
+  //   } catch (error) {
+  //     console.log(`Error: ${error.message}`);
+  //   }
+  // };
+
   return (
-    <div className={styles.home}>
-      <AppButton label={'Logout'} callBackFunction={handleLogout} />
+    <div className={styles['home']}>
+      <div className={styles['button-container']}>
+        <AppButton label={'LOGOUT'} callback={logoutUserHandler} />
+      </div>
+      <div className={styles['button-container']}>
+        <AppButton label={'DELETE'} callback={deleteUserHandler} />
+      </div>
     </div>
   );
 };
+
+export { HomePage };

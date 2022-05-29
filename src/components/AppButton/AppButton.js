@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const AppButton = ({ label, callBackFunction = () => {} }) => {
-  return <button onClick={callBackFunction}>{label}</button>;
+import styles from './AppButton.module.scss';
+
+const AppButton = ({ label, callback }) => {
+  return (
+    <button onClick={callback} className={styles['button']}>
+      {label}
+    </button>
+  );
 };
 
 AppButton.propTypes = {
   label: PropTypes.string.isRequired,
+  callback: PropTypes.func.isRequired,
 };
+
+export { AppButton };
