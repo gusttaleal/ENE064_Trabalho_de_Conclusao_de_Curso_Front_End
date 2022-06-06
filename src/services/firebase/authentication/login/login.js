@@ -1,33 +1,31 @@
-import { returnsTimeWithoutSeconds } from '../../../../utils/returnsTimeWithoutSeconds';
-import { signin, launchEmailVerification } from '../../configuration';
+import { signin } from '../../configuration';
+import { verifyFirstAccess } from '../../../../utils/verifyFirstAccess';
+import { errorLog } from '../../../../utils/errorLog';
+import { registerUser } from '../../../../api/UserApi/registerUser';
 
-const login = async () => await signin(_userLoggedInSuccessfully, _errorLoggingUser);
-
-const _userLoggedInSuccessfully = (result) => {
-  console.log('Sign-in successful');
-  _isFirstAccess(result.user);
-};
-
-const _isFirstAccess = (user) => {
-  const unixTimeStamp = user.metadata.createdAt;
-
-  const createdAt = returnsTimeWithoutSeconds(unixTimeStamp);
-  const dateNow = returnsTimeWithoutSeconds();
-
-  if (createdAt === dateNow) {
-    console.log('It is the first access.');
-    _sendEmailVerification(user);
+const login = async () => {
+  try {
+    const result = await signin();
+    const userStatus = await _userLoggedInSuccessfully(result);
+    return userStatus;
+  } catch (error) {
+    errorLog('login.js', 'login()', error);
   }
 };
 
-const _sendEmailVerification = async (user) => {
-  await launchEmailVerification(user, _emailVerificationWasSent, _errorSendingEmailVerification);
+const _userLoggedInSuccessfully = async (result) => {
+  try {
+    await registerUser(result.user);
+
+    await verifyFirstAccess(result.user);
+
+    console.log('Sign-in successful');
+
+    return result;
+  } catch (error) {
+    errorLog('login.js', '_userLoggedInSuccessfully()', error);
+    return null;
+  }
 };
-
-const _emailVerificationWasSent = () => alert('The e-mail verification was sent. Check your inbox and span.');
-
-const _errorSendingEmailVerification = (error) => console.error(error);
-
-const _errorLoggingUser = (error) => console.error(error);
 
 export { login };

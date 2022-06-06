@@ -7,6 +7,7 @@ import {
   launchEmailVerification,
   launchSigninStateObserver,
   getUserCredentials,
+  reauthenticateUser,
 } from './firebaseConfig.js';
 
 export {
@@ -18,4 +19,5 @@ export {
   launchEmailVerification,
   launchSigninStateObserver,
   getUserCredentials,
+  reauthenticateUser,
 };

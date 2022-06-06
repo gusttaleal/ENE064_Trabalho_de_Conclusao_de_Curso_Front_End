@@ -1,10 +1,36 @@
 .login {
-  display: flex;
-
   margin: 2rem;
+
+  .text-container {
+    padding: 1rem 1rem;
+
+    .text-title {
+      font-weight: 500;
+      font-size: 2rem;
+
+      line-height: 2.5rem;
+
+      text-align: center;
+
+      color: var(--mono-color20);
+    }
+
+    .text-subtitle {
+      font-weight: 400;
+      font-size: 1rem;
+
+      line-height: 1.5rem;
+
+      text-align: center;
+
+      color: var(--gray);
+    }
+  }
 
   .button-container {
     display: flex;
-    align-items: flex-end;
+    justify-content: center;
+
+    padding: 2rem 0;
   }
 }

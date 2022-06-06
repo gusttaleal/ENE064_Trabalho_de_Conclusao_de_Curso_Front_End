@@ -7,9 +7,11 @@ import { useAuth } from '../../hooks/useAuth';
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-  const { user } = useAuth();
+  const { user, credential, setCredential } = useAuth();
 
-  const ruleOut = async () => await deleteUser(user);
+  const ruleOut = async () => {
+    await deleteUser(user, credential, setCredential);
+  };
 
   return <UserContext.Provider value={{ ruleOut }}>{children}</UserContext.Provider>;
 };

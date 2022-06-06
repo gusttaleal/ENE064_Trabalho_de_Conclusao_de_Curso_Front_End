@@ -4,8 +4,7 @@ import { AppButton } from '../../components/AppButton';
 
 import { useAuth } from '../../hooks/useAuth';
 import { useUser } from '../../hooks/useUser';
-
-// import { BaseApi } from '../../api/BaseApi';
+import { errorLog } from '../../utils/errorLog';
 
 import styles from './HomePage.module.scss';
 
@@ -17,7 +16,7 @@ const HomePage = () => {
     try {
       await signout();
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      errorLog('HomePage.jsx', 'signout()', error);
     }
   };
 
@@ -25,18 +24,9 @@ const HomePage = () => {
     try {
       await ruleOut();
     } catch (error) {
-      console.log(`Error: ${error.message}`);
+      errorLog('HomePage.jsx', 'deleteUserHandler()', error);
     }
   };
-
-  // const devicesHandler = async () => {
-  //   try {
-  //     const devices = await BaseApi.get('device');
-  //     devices.data.map((device) => console.log(device));
-  //   } catch (error) {
-  //     console.log(`Error: ${error.message}`);
-  //   }
-  // };
 
   return (
     <div className={styles['home']}>

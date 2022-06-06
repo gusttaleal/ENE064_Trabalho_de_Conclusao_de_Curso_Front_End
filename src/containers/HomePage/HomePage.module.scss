@@ -1,9 +1,18 @@
 .home {
+  background-color: blue;
+
   display: flex;
+  flex-direction: column;
 
   margin: 2rem;
 
   .button-container {
-    padding: 0 1rem;
+    padding: 1rem 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .home {
+    flex-direction: row;
   }
 }

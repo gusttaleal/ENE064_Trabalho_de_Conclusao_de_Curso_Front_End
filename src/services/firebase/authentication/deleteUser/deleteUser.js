@@ -1,11 +1,25 @@
-import { ruleOut } from '../../configuration';
+import { getUserCredentials, reauthenticateUser, ruleOut } from '../../configuration';
+import { errorLog } from '../../../../utils/errorLog';
+import { userDeleted } from '../../../../api/UserApi/userDeleted';
 
-const deleteUser = async (user) => await ruleOut(user, _userDeletedSuccessfully, _errorDeletingUser);
+const deleteUser = async (user, credential, setCredential) => {
+  sessionStorage.removeItem('credential');
+  setCredential(null);
 
-const _userDeletedSuccessfully = () => alert('Rule-out successful');
+  await userDeleted(user);
+
+  const _credential = getUserCredentials(credential);
+  await reauthenticateUser(user, _credential);
+
+  await ruleOut(user, _userDeletedSuccessfully, _errorDeletingUser);
+};
+
+const _userDeletedSuccessfully = () => {
+  console.log('Rule-out successful');
+};
 
 const _errorDeletingUser = (error) => {
-  alert(`Faça o login novamente.\nError: ${error.message}`);
+  errorLog('deleteUser.js', 'deleteUser()', error);
 };
 
 export { deleteUser };

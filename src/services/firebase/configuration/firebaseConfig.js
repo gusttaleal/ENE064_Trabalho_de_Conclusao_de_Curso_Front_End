@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
   deleteUser,
+  reauthenticateWithCredential,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -27,9 +28,9 @@ const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
-const signin = (callback, errorHandler) => signInWithPopup(auth, provider).then(callback).catch(errorHandler);
+const signin = async () => await signInWithPopup(auth, provider);
 
-const signout = (callback, errorHandler) => signOut(auth).then(callback).catch(errorHandler);
+const signout = async () => await signOut(auth);
 
 const ruleOut = (user, callback, errorHandler) => deleteUser(user).then(callback).catch(errorHandler);
 
@@ -41,6 +42,8 @@ const launchSigninStateObserver = (callback, errorHandler, observerHandler) =>
 
 const getUserCredentials = (result) => GoogleAuthProvider.credentialFromResult(result);
 
+const reauthenticateUser = (user, credential) => reauthenticateWithCredential(user, credential);
+
 export {
   serverTimestamp,
   firestoreDataBase,
@@ -50,4 +53,5 @@ export {
   launchEmailVerification,
   launchSigninStateObserver,
   getUserCredentials,
+  reauthenticateUser,
 };

@@ -25,8 +25,17 @@ const LoginPage = () => {
 
   return (
     <div className={styles['login']}>
+      <div className={styles['text-container']}>
+        <p className={styles['text-title']}>Aquisição e Gerenciamento de dados via CoAP</p>
+      </div>
       <div className={styles['button-container']}>
         <LoginButton callback={loginUserHandler} />
+      </div>
+      <div className={styles['text-container']}>
+        <p className={styles['text-subtitle']}>
+          Autenticação via Google - Verifique nas configurações de segurança da sua conta Google a conexão com nosso
+          App, busque pelo tópico "Fazer login em outros sites"
+        </p>
       </div>
     </div>
   );

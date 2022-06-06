@@ -28,4 +28,11 @@
   --mix-color30: #fecd23;
   --mix-color40: #0a996f;
   --mix-color50: #0a6789;
+
+  --min-mobile-breakpoint: 375px;
+  --max-mobile-breakpoint: 768px;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
 }
