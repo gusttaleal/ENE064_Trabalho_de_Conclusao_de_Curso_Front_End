@@ -4,19 +4,15 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './context/Auth';
-import { UserProvider } from './context/User/User';
-
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <UserProvider>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </UserProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,

@@ -16,28 +16,20 @@ const AuthProvider = ({ children }) => {
   const [credential, setCredential] = useState(null);
 
   useEffect(() => {
-    const _credential = sessionStorage.getItem('credential');
-    if (_credential) {
-      setCredential(JSON.parse(decryptData(_credential)));
+    if (sessionStorage.getItem('credential')) {
+      setCredential(JSON.parse(decryptData(sessionStorage.getItem('credential'))));
     } else {
       signout();
     }
 
+    observer((user) => setUser(user));
     setTimeout(() => setPending(false), '1000');
   }, []);
 
   const signin = async () => {
     const result = await login();
-    console.log(result);
-    if (result) {
-      const _credential = JSON.stringify(result);
-      sessionStorage.setItem('credential', encryptData(_credential));
-      setCredential(result);
-      observer((user) => setUser(user));
-    } else {
-      signout();
-      alert('Usuário excluido da aplicação');
-    }
+    sessionStorage.setItem('credential', encryptData(JSON.stringify(result)));
+    setCredential(result);
   };
 
   const signout = async () => {
@@ -48,11 +40,7 @@ const AuthProvider = ({ children }) => {
   if (pending) {
     return <CustomBackdrop isOpen={pending} />;
   } else {
-    return (
-      <AuthContext.Provider value={{ user, credential, signin, signout, setCredential }}>
-        {children}
-      </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={{ user, credential, signin, signout }}>{children}</AuthContext.Provider>;
   }
 };
 

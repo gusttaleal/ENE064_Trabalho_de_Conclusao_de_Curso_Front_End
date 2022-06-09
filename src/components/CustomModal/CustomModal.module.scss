@@ -1,0 +1,32 @@
+.modal {
+  margin: 2rem;
+
+  border-radius: 1.5rem;
+
+  overflow: auto;
+
+  // background-color: blue;
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // max-width: var(--max-mobile-breakpoint);
+
+    padding: 2rem 1rem;
+
+    font-weight: 700;
+    font-size: 1rem;
+
+    border-radius: 1.5rem;
+
+    background-color: var(--white);
+
+    .textfield {
+      margin: 1rem 0;
+      width: 18rem;
+    }
+  }
+}

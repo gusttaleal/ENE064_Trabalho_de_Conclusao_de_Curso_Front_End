@@ -34,3 +34,9 @@
     padding: 2rem 0;
   }
 }
+
+@media (min-width: 768px) {
+  .login {
+    width: var(--max-mobile-breakpoint);
+  }
+}

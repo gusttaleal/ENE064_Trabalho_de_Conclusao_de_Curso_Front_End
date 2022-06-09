@@ -10,7 +10,7 @@ const CustomBackdrop = ({ isOpen }) => {
   return (
     <div>
       <Backdrop className={styles['backdrop']} open={isOpen}>
-        <CircularProgress color="inherit" />
+        <CircularProgress className={styles['backdrop-circular-progress']} />
       </Backdrop>
     </div>
   );

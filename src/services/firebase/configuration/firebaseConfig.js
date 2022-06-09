@@ -10,6 +10,7 @@ import {
   deleteUser,
   reauthenticateWithCredential,
 } from 'firebase/auth';
+import { errorLog } from '../../../utils/errorLog';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
@@ -28,17 +29,33 @@ const auth = getAuth(app);
 
 const provider = new GoogleAuthProvider();
 
-const signin = async () => await signInWithPopup(auth, provider);
+const signin = (callback) =>
+  signInWithPopup(auth, provider)
+    .then(callback)
+    .catch((error) => errorLog('firebaseConfig.js', 'signin()', error));
 
-const signout = async () => await signOut(auth);
+const signout = (callback) =>
+  signOut(auth)
+    .then(callback)
+    .catch((error) => errorLog('firebaseConfig.js', 'signout()', error));
 
-const ruleOut = (user, callback, errorHandler) => deleteUser(user).then(callback).catch(errorHandler);
+const launchEmailVerification = (user, callback) =>
+  sendEmailVerification(user)
+    .then(callback)
+    .catch((error) => errorLog('firebaseConfig.js', 'launchEmailVerification()', error));
 
-const launchEmailVerification = (user, callback, errorHandler) =>
-  sendEmailVerification(user).then(callback).catch(errorHandler);
+const launchSigninStateObserver = (callback) =>
+  onAuthStateChanged(
+    auth,
+    callback,
+    (error) => errorLog('firebaseConfig.js', 'launchSigninStateObserver()', error),
+    (completed) => console.log(`The observer was removed: ${completed}`)
+  );
 
-const launchSigninStateObserver = (callback, errorHandler, observerHandler) =>
-  onAuthStateChanged(auth, callback, errorHandler, observerHandler);
+const ruleout = (user, callback) =>
+  deleteUser(user)
+    .then(callback)
+    .catch((error) => errorLog('firebaseConfig.js', 'ruleout()', error));
 
 const getUserCredentials = (result) => GoogleAuthProvider.credentialFromResult(result);
 
@@ -49,9 +66,9 @@ export {
   firestoreDataBase,
   signin,
   signout,
-  ruleOut,
   launchEmailVerification,
   launchSigninStateObserver,
+  ruleout,
   getUserCredentials,
   reauthenticateUser,
 };

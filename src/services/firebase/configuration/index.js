@@ -3,9 +3,9 @@ import {
   firestoreDataBase,
   signin,
   signout,
-  ruleOut,
   launchEmailVerification,
   launchSigninStateObserver,
+  ruleout,
   getUserCredentials,
   reauthenticateUser,
 } from './firebaseConfig.js';
@@ -15,9 +15,9 @@ export {
   firestoreDataBase,
   signin,
   signout,
-  ruleOut,
   launchEmailVerification,
   launchSigninStateObserver,
+  ruleout,
   getUserCredentials,
   reauthenticateUser,
 };
