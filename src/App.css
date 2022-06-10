@@ -29,8 +29,11 @@
   --mix-color40: #0a996f;
   --mix-color50: #0a6789;
 
-  --min-mobile-breakpoint: 375px;
-  --max-mobile-breakpoint: 768px;
+  --min-width-mobile-breakpoint: 343px; /*Iphone SE dimensions with margin-left and margin-right*/
+  --max-width-mobile-breakpoint: 736px; /*Ipad Mini dimensions with margin-left and margin-right*/
+
+  --min-height-mobile-breakpoint: 635px; /*Iphone SE dimensions with margin-left and margin-right*/
+  --max-height-mobile-breakpoint: 992px; /*Ipad Mini dimensions with margin-left and margin-right*/
 }
 
 * {

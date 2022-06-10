@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import styles from './AppButton.module.scss';
 
-const AppButton = ({ label, callback }) => {
+const AppButton = ({ label, callback, type = 'button' }) => {
   return (
-    <button onClick={callback} className={styles['button']}>
+    <button type={type} onClick={callback} className={styles['button']}>
       {label}
     </button>
   );
