@@ -1,0 +1,39 @@
+.devices {
+  margin: 2rem;
+
+  min-width: var(--min-width-mobile-breakpoint);
+
+  .devices-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .data-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+
+    width: 300px;
+
+    border-style: solid;
+    border-width: 0.2rem;
+    border-radius: 1.5rem;
+    border-color: var(--mono-color20);
+
+    font-weight: 700;
+    font-size: 1rem;
+
+    color: var(--mono-color20);
+    background-color: var(--white);
+
+    transition-duration: 0.3s;
+  }
+
+  .data-container:hover {
+    color: var(--white);
+    background-color: var(--mono-color20);
+
+    cursor: pointer;
+  }
+}

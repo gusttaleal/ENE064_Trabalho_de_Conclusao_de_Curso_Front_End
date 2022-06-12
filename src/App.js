@@ -1,5 +1,6 @@
 import { HomePage } from './containers/HomePage';
 import { LoginPage } from './containers/LoginPage';
+import { DevicesPage } from './containers/DevicesPage';
 import { ErrorPage } from './containers/ErrorPage';
 
 import { Layout } from './components/Layout';
@@ -18,6 +19,7 @@ function App() {
         {/* private routes */}
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/devices" element={<DevicesPage />} />
         </Route>
         {/* routes not founded */}
         <Route path="*" element={<ErrorPage />} />

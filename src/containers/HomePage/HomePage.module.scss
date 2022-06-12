@@ -1,18 +1,12 @@
 .home {
-  background-color: blue;
-
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   margin: 2rem;
 
   .button-container {
     padding: 1rem 1rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .home {
-    flex-direction: row;
   }
 }

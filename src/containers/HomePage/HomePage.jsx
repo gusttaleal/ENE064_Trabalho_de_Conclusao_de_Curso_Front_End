@@ -1,56 +1,56 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { AppButton } from '../../components/AppButton';
-import { SuccessAlert } from '../../components/CustomAlert';
-import { CustomModal } from '../../components/CustomModal/CustomModal';
+import { MenuModal } from '../../components/CustomModal';
+import { CustomText, CustomTitle } from '../../components/CustomText';
 
 import { useAuth } from '../../hooks/useAuth';
-// import { useDevice } from '../../hooks/useDevice';
+import { useDevice } from '../../hooks/useDevice';
 
 import styles from './HomePage.module.scss';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const { signout } = useAuth();
-  // const { createDevice, readDevices } = useDevice();
+  const { createDevice } = useDevice();
 
   const [modal, setModal] = useState(false);
-  const [alert, setAlert] = useState(false);
 
   const logoutUserHandler = async () => {
     await signout();
   };
 
-  const createDeviceHandler = async () => {
-    setModal(!modal);
-  };
+  const errorUserHandler = async () => navigate('/error', { replace: true });
 
-  const readDeviceHandler = async () => {
-    setAlert(!alert);
-    setTimeout(setAlert(!alert), 1000);
-    // await createDevice(modal);
-    // await readDevices();
-  };
+  const routeHandler = () => navigate('/devices', { replace: true });
 
   return (
     <div className={styles['home']}>
+      <CustomTitle>MENU</CustomTitle>
+      <CustomText>
+        Nesta sessão é possível registrar um dispositivo criando ele na aplicação, visualizar os dispositivos ja
+        registrdos e sair da aplicação
+      </CustomText>
       <div className={styles['button-container']}>
         <AppButton label={'LOGOUT'} callback={logoutUserHandler} />
       </div>
       <div className={styles['button-container']}>
-        <AppButton label={'CREATE DEVICE'} callback={createDeviceHandler} />
+        <AppButton label={'ERROR'} callback={errorUserHandler} />
       </div>
       <div className={styles['button-container']}>
-        <AppButton label={'SHOW DEVICES'} callback={readDeviceHandler} />
+        <AppButton label={'CRIAR DISPOSITIVO'} callback={() => setModal(!modal)} />
       </div>
       <div>
-        <CustomModal
+        <MenuModal
           isOpen={modal}
-          callback={() => setModal(!modal)}
-          submit={(name, type, status) => console.log(name + ' ' + type + ' ' + status)}
+          closeModal={() => setModal(!modal)}
+          submit={(deviceName, deviceType, deviceStatus) => createDevice(deviceName, deviceType, deviceStatus)}
         />
       </div>
-      <div>
-        <SuccessAlert text="TESTE" isOpen={alert} callback={() => setAlert(!alert)} />
+      <div className={styles['button-container']}>
+        <AppButton label={'VER DISPOSITIVOS'} callback={routeHandler} />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CustomSubTitle, CustomTitle } from '../../components/CustomText';
 
 import { LoginButton } from '../../components/LoginButton';
 
@@ -26,16 +27,16 @@ const LoginPage = () => {
   return (
     <div className={styles['login']}>
       <div className={styles['text-container']}>
-        <p className={styles['text-title']}>Aquisição e Gerenciamento de dados via CoAP</p>
+        <CustomTitle>Aquisição e Gerenciamento de dados via CoAP</CustomTitle>
       </div>
       <div className={styles['button-container']}>
         <LoginButton callback={loginUserHandler} />
       </div>
       <div className={styles['text-container']}>
-        <p className={styles['text-subtitle']}>
+        <CustomSubTitle>
           Autenticação via Google - Verifique nas configurações de segurança da sua conta Google a conexão com nosso
           App, busque pelo tópico "Fazer login em outros sites"
-        </p>
+        </CustomSubTitle>
       </div>
     </div>
   );

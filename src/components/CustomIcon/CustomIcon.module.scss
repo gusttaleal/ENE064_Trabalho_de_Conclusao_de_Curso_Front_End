@@ -1,0 +1,11 @@
+.icon-element {
+  width: 25px;
+  border-radius: 1rem;
+  transition-duration: 0.3s;
+}
+
+.icon-element:hover {
+  background-color: var(--light-gray);
+
+  cursor: pointer;
+}

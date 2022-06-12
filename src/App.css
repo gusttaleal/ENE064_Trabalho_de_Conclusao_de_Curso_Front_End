@@ -4,6 +4,7 @@
   --black: #000;
   --white: #fcfcfc;
   --gray: #bebebe;
+  --light-gray: #e8e8e8;
 
   --mono-color1: #000706;
   --mono-color2: #00272d;
@@ -34,8 +35,6 @@
 
   --min-height-mobile-breakpoint: 635px; /*Iphone SE dimensions with margin-left and margin-right*/
   --max-height-mobile-breakpoint: 992px; /*Ipad Mini dimensions with margin-left and margin-right*/
-}
 
-* {
   font-family: 'Roboto', sans-serif;
 }

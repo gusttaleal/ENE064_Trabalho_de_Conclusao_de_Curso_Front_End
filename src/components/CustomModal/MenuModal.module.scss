@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
 
-  .box {
+  .modal-container {
     width: var(--min-width-mobile-breakpoint);
 
     padding-top: 2rem;
@@ -16,16 +16,14 @@
 
     background-color: var(--white);
 
-    overflow: auto;
-
-    .icon {
+    .icon-container {
       display: flex;
       justify-content: flex-end;
 
-      padding: 0 2rem;
+      margin-right: 2rem;
+      margin-bottom: 1rem;
     }
-
-    .container-box {
+    .body {
       margin: 1rem 2rem 0 2rem;
 
       display: flex;
@@ -33,7 +31,7 @@
       align-items: center;
 
       .status-container {
-        padding-bottom: 1rem;
+        margin: 1rem 0 2rem 0;
       }
     }
   }

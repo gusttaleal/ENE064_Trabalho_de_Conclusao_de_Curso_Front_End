@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     }
 
     observer((user) => setUser(user));
-    setTimeout(() => setPending(false), '1000');
+    setTimeout(() => setPending(false), '500');
   }, []);
 
   const signin = async () => {
@@ -40,7 +40,9 @@ const AuthProvider = ({ children }) => {
   if (pending) {
     return <CustomBackdrop isOpen={pending} />;
   } else {
-    return <AuthContext.Provider value={{ user, credential, signin, signout }}>{children}</AuthContext.Provider>;
+    return (
+      <AuthContext.Provider value={{ user, credential, setPending, signin, signout }}>{children}</AuthContext.Provider>
+    );
   }
 };
 
