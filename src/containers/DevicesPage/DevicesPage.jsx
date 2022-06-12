@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDevice } from '../../hooks/useDevice';
 import { DeviceModal } from '../../components/CustomModal';
-import { CustomBackdrop } from '../../components/CustomBackdrop/CustomBackdrop';
+import { CustomBackdrop } from '../../components/CustomBackdrop';
 import { CustomTitle, CustomSubTitle, CustomText } from '../../components/CustomText';
 
 import { CustomIcon } from '../../components/CustomIcon';
@@ -12,28 +12,31 @@ import arrowBackIcon from '../../assets/icons/arrow_back_icon.png';
 import styles from './DevicesPage.module.scss';
 
 const DevicesPage = () => {
-  const navigate = useNavigate();
-  const routeHandler = () => navigate('/', { replace: true });
-
-  const { readDevices, updateDevice } = useDevice();
-
-  const [devices, setDevices] = useState();
-  const [modal, setModal] = useState(false);
+  const [devices, setDevices] = useState({
+    userId: 'userId',
+    deviceName: 'deviceName',
+    deviceType: 'deviceType',
+    deviceStatus: false,
+  });
   const [index, setIndex] = useState(0);
-
+  const [modal, setModal] = useState(false);
   const [pending, setPending] = useState(true);
 
-  useEffect(() => {
-    getDevices();
-  }, []);
+  useEffect(() => getDevices(), []);
+
+  const navigate = useNavigate();
+
+  const { readDevices, updateDevice, deleteDevice } = useDevice();
 
   const getDevices = async () => {
     const getDevices = await readDevices();
     setDevices(getDevices);
-    setTimeout(() => setPending(false), '500');
+    setTimeout(() => setPending(false), 500);
   };
 
-  const handleModal = (index) => {
+  const routeHandler = () => navigate('/', { replace: true });
+
+  const modalHandler = (index) => {
     setIndex(index);
     setModal(!modal);
   };
@@ -47,7 +50,7 @@ const DevicesPage = () => {
         <div className={styles['devices-container']}>
           <CustomTitle>DISPOSITIVOS</CustomTitle>
           {devices.map((device, index) => (
-            <div key={index} className={styles['data-container']} onClick={() => handleModal(index)}>
+            <div key={index} className={styles['data-container']} onClick={() => modalHandler(index)}>
               <CustomText>ID: {device.deviceId}</CustomText>
               <CustomSubTitle>{device.deviceName}</CustomSubTitle>
             </div>
@@ -58,9 +61,10 @@ const DevicesPage = () => {
           isOpen={modal}
           closeModal={() => setModal(!modal)}
           device={devices[index]}
-          submit={(deviceId, deviceName, deviceType, deviceStatus) =>
+          submitCallback={(deviceId, deviceName, deviceType, deviceStatus) =>
             updateDevice(deviceId, deviceName, deviceType, deviceStatus)
           }
+          deleteCallback={(deviceId) => deleteDevice(deviceId)}
         />
       </div>
     );

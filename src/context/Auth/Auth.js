@@ -6,7 +6,7 @@ import { observer } from '../../services/firebase/authentication/observer';
 import { encryptData } from '../../utils/encryptData';
 import { decryptData } from '../../utils/decryptData';
 
-import { CustomBackdrop } from '../../components/CustomBackdrop/CustomBackdrop';
+import { CustomBackdrop } from '../../components/CustomBackdrop';
 
 const AuthContext = createContext({});
 

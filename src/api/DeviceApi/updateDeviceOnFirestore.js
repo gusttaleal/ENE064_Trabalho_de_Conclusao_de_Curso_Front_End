@@ -1,14 +1,7 @@
 import { errorLog } from '../../utils/errorLog';
 import { baseApi } from '../BaseApi/baseApi';
 
-const updateDeviceOnFirestore = (
-  device,
-  callback = (resolve, reject) => {
-    console.log(resolve);
-    console.log(reject);
-    return { resolve, reject };
-  }
-) =>
+const updateDeviceOnFirestore = (device) =>
   baseApi
     .patch('device', {
       deviceId: device.deviceId,
@@ -16,7 +9,7 @@ const updateDeviceOnFirestore = (
       deviceType: device.deviceType,
       deviceStatus: device.deviceStatus,
     })
-    .then(callback)
+    .then((resolve, reject) => (resolve ? resolve : reject))
     .catch((error) => errorLog('updateDeviceOnFirestore.js', 'updateDeviceOnFirestore()', error));
 
 export { updateDeviceOnFirestore };

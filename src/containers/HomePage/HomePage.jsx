@@ -22,8 +22,6 @@ const HomePage = () => {
     await signout();
   };
 
-  const errorUserHandler = async () => navigate('/error', { replace: true });
-
   const routeHandler = () => navigate('/devices', { replace: true });
 
   return (
@@ -37,21 +35,19 @@ const HomePage = () => {
         <AppButton label={'LOGOUT'} callback={logoutUserHandler} />
       </div>
       <div className={styles['button-container']}>
-        <AppButton label={'ERROR'} callback={errorUserHandler} />
-      </div>
-      <div className={styles['button-container']}>
         <AppButton label={'CRIAR DISPOSITIVO'} callback={() => setModal(!modal)} />
-      </div>
-      <div>
-        <MenuModal
-          isOpen={modal}
-          closeModal={() => setModal(!modal)}
-          submit={(deviceName, deviceType, deviceStatus) => createDevice(deviceName, deviceType, deviceStatus)}
-        />
       </div>
       <div className={styles['button-container']}>
         <AppButton label={'VER DISPOSITIVOS'} callback={routeHandler} />
       </div>
+
+      <MenuModal
+        isOpen={modal}
+        closeModal={() => setModal(!modal)}
+        submit={async (deviceName, deviceType, deviceStatus) =>
+          await createDevice(deviceName, deviceType, deviceStatus)
+        }
+      />
     </div>
   );
 };

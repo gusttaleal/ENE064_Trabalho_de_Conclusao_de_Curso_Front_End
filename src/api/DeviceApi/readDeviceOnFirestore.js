@@ -1,19 +1,12 @@
 import { errorLog } from '../../utils/errorLog';
 import { baseApi } from '../BaseApi/baseApi';
 
-const readDeviceOnFirestore = (
-  device = { deviceId: null },
-  callback = (resolve, reject) => {
-    console.log(resolve);
-    console.log(reject);
-    return { resolve, reject };
-  }
-) =>
+const readDeviceOnFirestore = (device = { deviceId: null }) =>
   baseApi
     .get('device', {
       deviceId: device.deviceId,
     })
-    .then(callback)
+    .then((resolve, reject) => (resolve ? resolve : reject))
     .catch((error) => errorLog('readDeviceOnFirestore.js', 'readDeviceOnFirestore()', error));
 
 export { readDeviceOnFirestore };

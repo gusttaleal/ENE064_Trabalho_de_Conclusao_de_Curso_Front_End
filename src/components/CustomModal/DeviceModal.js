@@ -10,11 +10,12 @@ import { CustomSubTitle, CustomText, CustomTitle } from '../CustomText';
 import { CustomIcon } from '../CustomIcon';
 
 import closeIcon from '../../assets/icons/close_icon.png';
+import deleteIcon from '../../assets/icons/delete_icon.png';
 
 import styles from './MenuModal.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-const DeviceModal = ({ isOpen, closeModal, device, submit }) => {
+const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallback }) => {
   const navigate = useNavigate();
 
   const [deviceName, setDeviceName] = useState(device.deviceName);
@@ -33,8 +34,13 @@ const DeviceModal = ({ isOpen, closeModal, device, submit }) => {
     setDeviceStatus(!deviceStatus);
   };
 
-  const handleChangeSubmit = async () => {
-    await submit(device.deviceId, deviceName, deviceType, deviceStatus);
+  const handleSubmitChanges = async () => {
+    await submitCallback(device.deviceId, deviceName, deviceType, deviceStatus);
+    window.location.reload();
+  };
+
+  const handleDelete = async () => {
+    await deleteCallback(device.deviceId);
     window.location.reload();
   };
 
@@ -59,7 +65,7 @@ const DeviceModal = ({ isOpen, closeModal, device, submit }) => {
 
           <CustomSubTitle>{device.deviceId}</CustomSubTitle>
 
-          <CustomText>Atualize ou visualize os dados do seu dispositivo</CustomText>
+          <CustomText>Atualize, visualize ou apague os dados ou o seu dispositivo</CustomText>
 
           <AppButton label="VISUALIZAR" callback={routeHandler} />
 
@@ -84,8 +90,14 @@ const DeviceModal = ({ isOpen, closeModal, device, submit }) => {
             className={styles['status-container']}
             label="Estado do dispositivo"
           />
-
-          <AppButton label="ATUALIZAR" callback={handleChangeSubmit} />
+          <div className={styles['footer-container']}>
+            <div className={styles['buttom-container-footer']}>
+              <AppButton label="ATUALIZAR" callback={handleSubmitChanges} />
+            </div>
+            <div className={styles['icon-container-footer']}>
+              <CustomIcon callback={handleDelete} icon={deleteIcon} alt="Close icon" />
+            </div>
+          </div>
         </div>
       </div>
     </Modal>
@@ -95,7 +107,8 @@ const DeviceModal = ({ isOpen, closeModal, device, submit }) => {
 DeviceModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired,
+  submitCallback: PropTypes.func.isRequired,
+  deleteCallback: PropTypes.func.isRequired,
   device: PropTypes.object.isRequired,
 };
 
