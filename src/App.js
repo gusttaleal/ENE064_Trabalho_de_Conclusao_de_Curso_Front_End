@@ -9,6 +9,7 @@ import { RequireAuth } from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
+import { DashboardPage } from './containers/DashboardPage/DashboardPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/devices" element={<DevicesPage />} />
+          <Route path="/dashboard/:deviceId" element={<DashboardPage />} />
         </Route>
         {/* routes not founded */}
         <Route path="*" element={<ErrorPage />} />

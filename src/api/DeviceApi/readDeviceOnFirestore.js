@@ -3,9 +3,7 @@ import { baseApi } from '../BaseApi/baseApi';
 
 const readDeviceOnFirestore = (device = { deviceId: null }) =>
   baseApi
-    .get('device', {
-      deviceId: device.deviceId,
-    })
+    .get('device', { params: { deviceId: device.deviceId } })
     .then((resolve, reject) => (resolve ? resolve : reject))
     .catch((error) => errorLog('readDeviceOnFirestore.js', 'readDeviceOnFirestore()', error));
 

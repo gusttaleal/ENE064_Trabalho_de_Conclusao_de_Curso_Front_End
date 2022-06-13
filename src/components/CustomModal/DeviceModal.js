@@ -52,7 +52,7 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
     closeModal();
   };
 
-  const routeHandler = () => navigate(`/dashboard?deviceId=${device.deviceId}`, { replace: true });
+  const routeHandler = () => navigate(`/dashboard/${device.deviceId}`, { replace: true });
 
   return (
     <Modal className={styles['modal']} open={isOpen} onClose={close}>

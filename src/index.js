@@ -7,15 +7,18 @@ import { AuthProvider } from './context/Auth';
 import { DeviceProvider } from './context/Device';
 
 import './index.css';
+import { DataProvider } from './context/Data';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <DeviceProvider>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
+          <DataProvider>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </DataProvider>
         </DeviceProvider>
       </AuthProvider>
     </BrowserRouter>
