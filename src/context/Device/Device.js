@@ -1,5 +1,4 @@
 import React, { createContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { createDeviceOnFirestore } from '../../api/DeviceApi/createDeviceOnFirestore';
 import { readDeviceOnFirestore } from '../../api/DeviceApi/readDeviceOnFirestore';
@@ -12,7 +11,6 @@ const DeviceContext = createContext({});
 
 const DeviceProvider = ({ children }) => {
   const { user } = useAuth();
-  const navigate = useNavigate();
 
   const createDevice = async (deviceName, deviceType, deviceStatus) =>
     await createDeviceOnFirestore({
@@ -23,8 +21,7 @@ const DeviceProvider = ({ children }) => {
     });
 
   const readDevices = async () => {
-    const device = await readDeviceOnFirestore();
-    return device ? device.data : navigate('/', { replace: true });
+    return await readDeviceOnFirestore();
   };
 
   const updateDevice = async (deviceId, deviceName, deviceType, deviceStatus) =>

@@ -3,11 +3,16 @@
 
   min-width: var(--min-width-mobile-breakpoint);
 
-  .devices-container {
+  .body-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .devices-container {
+    max-height: 500px;
+    overflow: auto;
   }
 
   .data-container {
@@ -36,4 +41,13 @@
 
     cursor: pointer;
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
 }

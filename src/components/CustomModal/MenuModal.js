@@ -41,7 +41,7 @@ const MenuModal = ({ isOpen, closeModal, submit }) => {
       setDeviceStatus(false);
       setAlert(false);
       closeModal();
-    }, 3000);
+    }, 1000);
   };
 
   return (

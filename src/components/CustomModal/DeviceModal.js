@@ -15,7 +15,7 @@ import deleteIcon from '../../assets/icons/delete_icon.png';
 import styles from './MenuModal.module.scss';
 import { useNavigate } from 'react-router-dom';
 
-const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallback }) => {
+const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallback, refreshCallback }) => {
   const navigate = useNavigate();
 
   const [deviceName, setDeviceName] = useState(device.deviceName);
@@ -36,12 +36,12 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
 
   const handleSubmitChanges = async () => {
     await submitCallback(device.deviceId, deviceName, deviceType, deviceStatus);
-    window.location.reload();
+    closeModal();
   };
 
   const handleDelete = async () => {
     await deleteCallback(device.deviceId);
-    window.location.reload();
+    closeModal();
   };
 
   const close = () => {
@@ -78,7 +78,7 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
           />
 
           <TextField
-            value={device.deviceType}
+            value={deviceType}
             onChange={handleChangeType}
             fullWidth
             margin="normal"
@@ -86,7 +86,7 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
           />
 
           <FormControlLabel
-            control={<Switch checked={device.deviceStatus} color="primary" onChange={handleChangeStatus} />}
+            control={<Switch checked={deviceStatus} color="primary" onChange={handleChangeStatus} />}
             className={styles['status-container']}
             label="Estado do dispositivo"
           />
@@ -107,9 +107,10 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
 DeviceModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
+  device: PropTypes.object.isRequired,
   submitCallback: PropTypes.func.isRequired,
   deleteCallback: PropTypes.func.isRequired,
-  device: PropTypes.object.isRequired,
+  refreshCallback: PropTypes.func.isRequired,
 };
 
 export { DeviceModal };
