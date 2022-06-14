@@ -10,8 +10,6 @@ const _userLoggedInSuccessfully = async (result) => {
     await saveUserCredentialsOnFirestore(result.user);
     sendEmailVerification(result.user);
   }
-
-  console.log('Sign-in successful');
   return result;
 };
 

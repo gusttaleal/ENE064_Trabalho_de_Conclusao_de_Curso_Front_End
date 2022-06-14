@@ -24,6 +24,7 @@ const DevicesPage = () => {
   const [alert, setAlert] = useState(false);
   const [pending, setPending] = useState(true);
 
+  // eslint-disable-next-line
   useEffect(() => getDevices(), [modal]);
 
   const navigate = useNavigate();

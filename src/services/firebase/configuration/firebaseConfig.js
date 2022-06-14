@@ -34,9 +34,9 @@ const signin = (callback) =>
     .then(callback)
     .catch((error) => errorLog('firebaseConfig.js', 'signin()', error));
 
-const signout = (callback) =>
+const signout = () =>
   signOut(auth)
-    .then(callback)
+    .then()
     .catch((error) => errorLog('firebaseConfig.js', 'signout()', error));
 
 const launchEmailVerification = (user, callback) =>
