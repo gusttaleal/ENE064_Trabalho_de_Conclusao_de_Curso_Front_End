@@ -27,13 +27,14 @@ const DashboardPage = () => {
   });
   const [pending, setPending] = useState(true);
   const [alert, setAlert] = useState(false);
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
   const [size, setSize] = useState(10);
   const [rate, setRate] = useState(1000);
 
   useEffect(() => {
     getData();
-    setTimeout(() => setToggle(!toggle), rate); // eslint-disable-next-line
+    setTimeout(() => setToggle(!toggle), rate);
+    // eslint-disable-next-line
   }, [toggle]);
 
   const getData = async () => {
@@ -51,7 +52,11 @@ const DashboardPage = () => {
     }
   };
 
-  const routeHandler = () => navigate('/devices', { replace: true });
+  const routeHandler = () => {
+    setPending(true);
+    setAlert(true);
+    navigate('/devices', { replace: true });
+  };
 
   if (pending) {
     return <CustomBackdrop isOpen={pending} />;
@@ -64,30 +69,30 @@ const DashboardPage = () => {
     return (
       <div className={styles['data']}>
         <CustomIcon icon={arrowBackIcon} callback={routeHandler} alt="Arrow back icon" />
-        <div className={styles['body-container']}>
+        <div className={styles['body']}>
           <CustomTitle>DASHBOARD</CustomTitle>
-          <CustomText>Quantidade de amostras [und]</CustomText>
-          <Slider
-            onChange={(value) => setSize(value.target.value)}
-            defaultValue={5}
-            valueLabelDisplay="auto"
-            step={5}
-            marks
-            min={5}
-            max={50}
-          />
-          <CustomText>Intervalo de tempo entre requisições [ms]</CustomText>
+          <div className={styles['body-container']}>
+            <CustomText style={{ textAlign: 'start' }}>Quantidade de amostras</CustomText>
+            <Slider
+              onChange={(value) => setSize(value.target.value)}
+              defaultValue={5}
+              valueLabelDisplay="auto"
+              step={5}
+              marks
+              min={5}
+              max={50}
+            />
+            <CustomText style={{ textAlign: 'start' }}>Intervalo de tempo entre requisições [ms]</CustomText>
 
-          <Slider
-            onChange={(value) => setRate(value.target.value)}
-            defaultValue={1000}
-            valueLabelDisplay="auto"
-            step={1000}
-            marks
-            min={1000}
-            max={5000}
-          />
-          <div className={styles['data-container']}>
+            <Slider
+              onChange={(value) => setRate(value.target.value)}
+              defaultValue={1000}
+              valueLabelDisplay="auto"
+              step={1000}
+              marks
+              min={1000}
+              max={5000}
+            />
             <CustomChart chartData={data} />
           </div>
         </div>

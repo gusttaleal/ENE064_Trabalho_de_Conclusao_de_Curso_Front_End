@@ -1,8 +1,8 @@
 import styles from './CustomText.module.scss';
 
-const CustomTitle = ({ children }) => <p className={styles['text-title']}>{children}</p>;
+const CustomTitle = ({ children }) => <h1 className={styles['text-title']}>{children}</h1>;
 
-const CustomSubTitle = ({ children }) => <p className={styles['text-subtitle']}>{children}</p>;
+const CustomSubTitle = ({ children }) => <h2 className={styles['text-subtitle']}>{children}</h2>;
 
 const CustomText = ({ children }) => <p className={styles['text']}>{children}</p>;
 

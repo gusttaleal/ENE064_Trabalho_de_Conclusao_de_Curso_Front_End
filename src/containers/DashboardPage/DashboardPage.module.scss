@@ -1,9 +1,15 @@
 .data {
+  width: var(--min-width-mobile-breakpoint);
   margin: 2rem;
 
-  min-width: var(--min-width-mobile-breakpoint);
-  .body-container {
-    .data-container {
-    }
+  p {
+    text-align: start !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .data {
+    width: 100%;
+    padding: 2rem;
   }
 }
