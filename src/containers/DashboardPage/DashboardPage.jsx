@@ -25,15 +25,16 @@ const DashboardPage = () => {
     recivedData: 'recivedData',
     transmittedData: 'transmittedData',
   });
-  const [pending, setPending] = useState(true);
+  const [out, setOut] = useState(true);
   const [alert, setAlert] = useState(false);
+  const [pending, setPending] = useState(true);
   const [toggle, setToggle] = useState(false);
   const [size, setSize] = useState(10);
   const [rate, setRate] = useState(1000);
 
   useEffect(() => {
     getData();
-    setTimeout(() => setToggle(!toggle), rate);
+    setTimeout(() => setToggle(!toggle && out), rate);
     // eslint-disable-next-line
   }, [toggle]);
 
@@ -53,9 +54,8 @@ const DashboardPage = () => {
   };
 
   const routeHandler = () => {
-    setPending(true);
-    setAlert(true);
-    navigate('/devices', { replace: true });
+    setOut(false);
+    setTimeout(() => navigate('/devices', { replace: true }), 500);
   };
 
   if (pending) {
