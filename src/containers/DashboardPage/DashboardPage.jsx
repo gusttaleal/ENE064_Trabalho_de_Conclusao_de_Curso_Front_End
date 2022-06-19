@@ -40,7 +40,6 @@ const DashboardPage = () => {
 
   const getData = async () => {
     const getData = await readData(deviceId, size);
-    console.log(getData);
     if (getData) {
       setData(getData);
       setTimeout(() => {
