@@ -30,7 +30,7 @@ const DashboardPage = () => {
   const [pending, setPending] = useState(true);
   const [toggle, setToggle] = useState(false);
   const [size, setSize] = useState(10);
-  const [rate, setRate] = useState(1000);
+  const [rate, setRate] = useState(5000);
 
   useEffect(() => {
     getData();
@@ -85,7 +85,7 @@ const DashboardPage = () => {
 
             <Slider
               onChange={(value) => setRate(value.target.value)}
-              defaultValue={1000}
+              defaultValue={5000}
               valueLabelDisplay="auto"
               step={1000}
               marks

@@ -41,7 +41,7 @@ const DeviceModal = ({ isOpen, closeModal, device, submitCallback, deleteCallbac
 
   const handleDelete = async () => {
     await deleteCallback(device.deviceId);
-    closeModal();
+    navigate('/');
   };
 
   const close = () => {
