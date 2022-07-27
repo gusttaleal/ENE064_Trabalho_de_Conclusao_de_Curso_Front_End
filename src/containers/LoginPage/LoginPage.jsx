@@ -27,7 +27,7 @@ const LoginPage = () => {
   return (
     <div className={styles['login']}>
       <div className={styles['text-container']}>
-        <CustomTitle>Aquisição e Gerenciamento de dados via CoAP</CustomTitle>
+        <CustomTitle>Sistema IoT de Aquisição e Gerenciamento de dados</CustomTitle>
       </div>
       <div className={styles['button-container']}>
         <LoginButton callback={loginUserHandler} />
